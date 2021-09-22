@@ -1,0 +1,14 @@
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\.intermediate\net5.0\delivery-gamemode.deps.json
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\.intermediate\net5.0\delivery-gamemode.dll
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\.intermediate\net5.0\ref\delivery-gamemode.dll
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\.intermediate\net5.0\delivery-gamemode.pdb
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\.intermediate\net5.0\delivery-gamemode.xml
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.csproj.AssemblyReference.cache
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.GeneratedMSBuildEditorConfig.editorconfig
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.AssemblyInfoInputs.cache
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.AssemblyInfo.cs
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.csproj.CoreCompileInputs.cache
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.csproj.CopyComplete
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.dll
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\ref\delivery-gamemode.dll
+A:\SteamLibrary\steamapps\common\sbox\Addons\delivery-gamemode\code\obj\Debug\net5.0\delivery-gamemode.pdb
