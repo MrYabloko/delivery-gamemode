@@ -38,6 +38,7 @@ public partial class CarEntity : Prop
 	private float airTilt;
 	private float grip;
 	protected TimeSince timeSinceDriverLeft;
+	protected TimeSince timeSincePassengerLeft;
 
 	protected virtual float wheelForwardOffset => 0;
 	public virtual int boxCount => 1;
@@ -82,6 +83,7 @@ public partial class CarEntity : Prop
 	}
 
 	[Net] public Player driver { get; protected set; }
+	[Net] public Player passenger { get; protected set; }
 
 	private ModelEntity chassis_axle_rear;
 	private ModelEntity chassis_axle_front;
@@ -212,9 +214,13 @@ public partial class CarEntity : Prop
 	{
 		base.OnDestroy();
 
-		if ( driver is DeliveryPlayer player )
+		if ( driver is DeliveryPlayer player1 )
 		{
-			RemoveDriver( player );
+			RemoveDriver( player1 );
+		}
+		if ( passenger is DeliveryPlayer player2 )
+		{
+			RemovePassenger( player2 );
 		}
 	}
 
@@ -226,11 +232,18 @@ public partial class CarEntity : Prop
 	[Event.Tick.Server]
 	protected void Tick()
 	{
-		if ( driver is DeliveryPlayer player )
+		if ( driver is DeliveryPlayer player1 )
 		{
-			if ( player.LifeState != LifeState.Alive || player.Vehicle != this )
+			if ( player1.LifeState != LifeState.Alive || player1.Vehicle != this )
 			{
-				RemoveDriver( player );
+				RemoveDriver( player1 );
+			}
+		}
+		if ( passenger is DeliveryPlayer player2 )
+		{
+			if ( player2.LifeState != LifeState.Alive || player2.Vehicle != this )
+			{
+				RemovePassenger( player2 );
 			}
 		}
 	}
@@ -248,17 +261,27 @@ public partial class CarEntity : Prop
 			{
 				if ( owner.Pawn is DeliveryPlayer player && !player.IsUseDisabled() )
 				{
-					RemoveDriver( player );
+					if ( player == driver )
+					{
+						RemoveDriver( player );
+					}
+					else if ( player == passenger )
+					{
+						RemovePassenger( player );
+					}
 
 					return;
 				}
 			}
 
-			currentInput.throttle = (Input.Down( InputButton.Forward ) ? 1 : 0) + (Input.Down( InputButton.Back ) ? -1 : 0);
-			currentInput.turning = (Input.Down( InputButton.Left ) ? 1 : 0) + (Input.Down( InputButton.Right ) ? -1 : 0);
-			currentInput.breaking = (Input.Down( InputButton.Jump ) ? 1 : 0);
-			currentInput.tilt = (Input.Down( InputButton.Run ) ? 1 : 0) + (Input.Down( InputButton.Duck ) ? -1 : 0);
-			currentInput.roll = (Input.Down( InputButton.Left ) ? 1 : 0) + (Input.Down( InputButton.Right ) ? -1 : 0);
+			if ( owner.Pawn is DeliveryPlayer dr_player && dr_player == driver )
+			{
+				currentInput.throttle = (Input.Down( InputButton.Forward ) ? 1 : 0) + (Input.Down( InputButton.Back ) ? -1 : 0);
+				currentInput.turning = (Input.Down( InputButton.Left ) ? 1 : 0) + (Input.Down( InputButton.Right ) ? -1 : 0);
+				currentInput.breaking = (Input.Down( InputButton.Jump ) ? 1 : 0);
+				currentInput.tilt = (Input.Down( InputButton.Run ) ? 1 : 0) + (Input.Down( InputButton.Duck ) ? -1 : 0);
+				currentInput.roll = (Input.Down( InputButton.Left ) ? 1 : 0) + (Input.Down( InputButton.Right ) ? -1 : 0);
+			}
 		}
 	}
 
@@ -523,6 +546,28 @@ public partial class CarEntity : Prop
 		}
 	}
 
+	private void RemovePassenger( DeliveryPlayer player )
+	{
+		passenger = null;
+		timeSincePassengerLeft = 0;
+
+		ResetInput();
+
+		if ( !player.IsValid() )
+			return;
+
+		player.Vehicle = null;
+		player.VehicleController = null;
+		player.VehicleAnimator = null;
+		player.VehicleCamera = null;
+		player.Parent = null;
+
+		if ( player.PhysicsBody.IsValid() )
+		{
+			player.PhysicsBody.Enabled = true;
+			player.PhysicsBody.Position = player.Position;
+		}
+	}
 	public virtual bool Sit( Entity user )
 	{
 		if ( user is DeliveryPlayer player && player.Vehicle == null && timeSinceDriverLeft > 1.0f )
@@ -541,6 +586,36 @@ public partial class CarEntity : Prop
 		}
 
 		return true;
+	}
+
+	public virtual bool SitAsPassenger(Entity user)
+	{
+		if ( user is DeliveryPlayer player && player.Vehicle == null && timeSincePassengerLeft > 1.0f )
+		{
+			player.Vehicle = this;
+			player.VehicleController = new CarController();
+			player.VehicleAnimator = new CarAnimator();
+			player.VehicleCamera = new CarCamera();
+			player.Parent = this;
+			player.LocalPosition = Vector3.Up * 24 + Vector3.Forward * 58 + Vector3.Right * 20;
+			player.LocalRotation = Rotation.Identity;
+			player.LocalScale = 1;
+			player.PhysicsBody.Enabled = false;
+
+			passenger = player;
+		}
+
+		return true;
+	}
+
+	public bool IsUsableAsPassenger( Entity user )
+	{
+		bool doorsOpened = true;
+		if ( doorsToSeat != null )
+		{
+			doorsOpened = !doorsToSeat.All( t => t.openState < 0.5f );
+		}
+		return user is DeliveryPlayer player && passenger == null && doorsOpened;
 	}
 
 	public bool IsUsable( Entity user )

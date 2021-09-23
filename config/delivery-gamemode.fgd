@@ -1,5 +1,5 @@
 
-@BaseClass = BaseProperties_delivery-gamemode
+@BaseClass = BaseProperties_delivery_gamemode
 [
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
 	parentAttachmentName(parentAttachment) [ group="Hierarchy" ] : "Parent Model Bone/Attachment Name" : : "The name of the bone or attachment to attach to on the entity's parent in the movement hierarchy. Use !bonemerge to use bone-merge style attachment."
@@ -16,7 +16,7 @@
 //
 // CarEntity
 //
-@PointClass base(BaseProperties_delivery-gamemode) model() = ent_car : ""
+@PointClass base(BaseProperties_delivery_gamemode) model() = ent_car : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -42,7 +42,7 @@
 //
 // DeliveryGamemode.DeliveryGame
 //
-@PointClass base(BaseProperties_delivery-gamemode) = deliverygamemode : "This is your game class. This is an entity that is created serverside when the game starts, and is replicated to the client.   You can use this to create things like HUDs and declare which player class to use for spawned players."
+@PointClass base(BaseProperties_delivery_gamemode) = deliverygamemode : "This is your game class. This is an entity that is created serverside when the game starts, and is replicated to the client.   You can use this to create things like HUDs and declare which player class to use for spawned players."
 [
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 ]
@@ -50,7 +50,7 @@
 //
 // DeliveryGamemode.Cargo
 //
-@PointClass base(BaseProperties_delivery-gamemode) model() = ent_cargo : ""
+@PointClass base(BaseProperties_delivery_gamemode) model() = ent_cargo : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -76,7 +76,7 @@
 //
 // DeliveryGamemode.CarDoor
 //
-@PointClass base(BaseProperties_delivery-gamemode) = car_door : ""
+@PointClass base(BaseProperties_delivery_gamemode) = car_door : ""
 [
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
@@ -86,7 +86,7 @@
 //
 // DeliveryGamemode.Hatchback
 //
-@PointClass base(BaseProperties_delivery-gamemode) model() = ent_hatchback : ""
+@PointClass base(BaseProperties_delivery_gamemode) model() = ent_hatchback : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
@@ -112,7 +112,7 @@
 //
 // DeliveryGamemode.Van
 //
-@PointClass base(BaseProperties_delivery-gamemode) model() = ent_van : ""
+@PointClass base(BaseProperties_delivery_gamemode) model() = ent_van : ""
 [
 	model(studio) [report]: "World Model" : "" : "The model this entity should use."
 	skin(materialgroup) [ group="Render Properties" ] : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
