@@ -93,6 +93,23 @@ namespace DeliveryGamemode
 			tailgate.stModel( "models/car/hatchback_a01/car_hatchback_a01_rear_door.vmdl" );
 
 			doorsToSeat = new [] { leftDoor, rightDoor };
+
+			var passangerST = new Seat()
+			{
+				Parent = this,
+				LocalPosition = Vector3.Up * 29 + Vector3.Right * 12.5f,
+				LocalRotation = Rotation.From( 0, 0, 0 ),
+				LocalScale = 1,
+				CollisionGroup = CollisionGroup.Interactive,
+				EnableSelfCollisions = false,
+
+			};
+			{
+				Vector3 size = Vector3.One * 30;
+				Vector3 pos = Vector3.Up * 15;
+				passangerST.SetupPhysicsFromOBB( PhysicsMotionType.Keyframed, -(size / 2) + pos, size / 2 + pos );
+				passangerST.SetInteractsExclude( CollisionLayer.PhysicsProp );
+			}
 		}
 
 		public override void ClientSpawn()
