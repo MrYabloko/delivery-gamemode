@@ -255,8 +255,6 @@ public partial class CarEntity : Prop
 
 		using ( Prediction.Off() )
 		{
-			currentInput.Reset();
-
 			if ( Input.Pressed( InputButton.Use ) )
 			{
 				if ( owner.Pawn is DeliveryPlayer player && !player.IsUseDisabled() )
@@ -276,6 +274,8 @@ public partial class CarEntity : Prop
 
 			if ( owner.Pawn is DeliveryPlayer dr_player && dr_player == driver )
 			{
+				currentInput.Reset();
+
 				currentInput.throttle = (Input.Down( InputButton.Forward ) ? 1 : 0) + (Input.Down( InputButton.Back ) ? -1 : 0);
 				currentInput.turning = (Input.Down( InputButton.Left ) ? 1 : 0) + (Input.Down( InputButton.Right ) ? -1 : 0);
 				currentInput.breaking = (Input.Down( InputButton.Jump ) ? 1 : 0);
