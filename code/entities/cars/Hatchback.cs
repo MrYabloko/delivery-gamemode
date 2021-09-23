@@ -94,7 +94,7 @@ namespace DeliveryGamemode
 
 			doorsToSeat = new [] { leftDoor, rightDoor };
 
-			var passangerST = new Seat()
+			var passangerST = new InteractibleSeat()
 			{
 				Parent = this,
 				LocalPosition = Vector3.Up * 29 + Vector3.Right * 12.5f,
@@ -109,6 +109,7 @@ namespace DeliveryGamemode
 				Vector3 pos = Vector3.Up * 15;
 				passangerST.SetupPhysicsFromOBB( PhysicsMotionType.Keyframed, -(size / 2) + pos, size / 2 + pos );
 				passangerST.SetInteractsExclude( CollisionLayer.PhysicsProp );
+				passangerST.doorsToSeat = new[] { rightDoor };
 			}
 		}
 
