@@ -53,6 +53,11 @@ namespace DeliveryGamemode
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
 
+			Vehicle = null;
+			VehicleAnimator = null;
+			VehicleCamera = null;
+			VehicleController = null;
+
 			base.Respawn();
 		}
 
@@ -60,6 +65,10 @@ namespace DeliveryGamemode
 		{
 			MainCamera = new FirstPersonCamera();
 			LastCamera = MainCamera;
+			Vehicle = null;
+			VehicleAnimator = null;
+			VehicleCamera = null;
+			VehicleController = null;
 
 			editingButtonPress = 0;
 			isEditing = false;
@@ -227,7 +236,7 @@ namespace DeliveryGamemode
 				ActiveChild = Input.ActiveChild;
 			}
 
-			if(editingButtonPress > 1)
+			if(editingButtonPress > 1 && PlayerScore.All.Length > 1 )
 			{
 				ChangeEditingMode( !isEditing );
 				editingButtonPress = 0;
