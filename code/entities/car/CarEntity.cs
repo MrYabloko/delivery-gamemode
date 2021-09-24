@@ -489,12 +489,12 @@ public partial class CarEntity : Prop
 	float wheelAngle = 0.0f;
 	float wheelRevolute = 0.0f;
 
-	[Event.Frame]
-	public void OnFrame()
+
+	[Event.Tick.Client]
+	public void ClientTick()
 	{
 		wheelAngle = wheelAngle.LerpTo( TurnDirection * 25, 1.0f - MathF.Pow( 0.001f, Time.Delta ) );
 		wheelRevolute += (WheelSpeed / (14.0f * Scale)).RadianToDegree() * Time.Delta;
-
 		var wheelRotRight = Rotation.From( -wheelAngle, 180, -wheelRevolute );
 		var wheelRotLeft = Rotation.From( wheelAngle, 0, wheelRevolute );
 		var wheelRotBackRight = Rotation.From( 0, 90, -wheelRevolute );
