@@ -537,7 +537,7 @@ public partial class CarEntity : Prop
 		player.VehicleController = null;
 		player.VehicleAnimator = null;
 		player.VehicleCamera = null;
-		player.Parent = null;
+		player.SetParent( null );
 
 		if ( player.PhysicsBody.IsValid() )
 		{
@@ -560,7 +560,7 @@ public partial class CarEntity : Prop
 		player.VehicleController = null;
 		player.VehicleAnimator = null;
 		player.VehicleCamera = null;
-		player.Parent = null;
+		player.SetParent( null );
 
 		if ( player.PhysicsBody.IsValid() )
 		{
