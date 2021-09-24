@@ -110,6 +110,13 @@ namespace DeliveryGamemode
 		}
 
 		[ClientRpc()]
+		void ClearInfo()
+		{
+			info = null;
+			timeSinceComplete = 0;
+		}
+
+		[ClientRpc()]
 		void SetOrderState(int state)
 		{
 			orderState = state;
@@ -132,6 +139,11 @@ namespace DeliveryGamemode
 				car.Position = spawnPosition;
 				car.Rotation = Rotation.Identity;
 				player.ownedCar = car;
+
+				player.info = null;
+				player.ClearInfo();
+				player.orderState = 0;
+				player.SetOrderState(0);
 			}
 		}
 
@@ -164,8 +176,9 @@ namespace DeliveryGamemode
 			if ( IsClient && info != null && orderState == 0 )
 			{
 				var pos = info.start.position + info.start.normal * 50;
-				arrow.Position = pos + Vector3.Up * MathF.Sin( Time.Now );
+				arrow.Position = pos;
 				arrow.Scale = 2;
+
 			}
 
 			if(IsServer && info != null && orderState == 0)
@@ -190,7 +203,7 @@ namespace DeliveryGamemode
 
 				var direction = (pos - eye).Normal;
 
-				arrow.Position = info.end.position + info.end.normal * 50 + Vector3.Up * MathF.Sin( Time.Now );
+				arrow.Position = info.end.position + info.end.normal * 50 ;
 				//	var dist = Vector3.DistanceBetween( Position, arrow.Position ) / 500;
 				//	dist = dist < 1 ? 1 : dist;
 				arrow.Scale = 2;
@@ -236,7 +249,7 @@ namespace DeliveryGamemode
 				ActiveChild = Input.ActiveChild;
 			}
 
-			if(editingButtonPress > 1 && PlayerScore.All.Length > 1 )
+			if(editingButtonPress > 1 && PlayerScore.All.Length <= 1 )
 			{
 				ChangeEditingMode( !isEditing );
 				editingButtonPress = 0;
