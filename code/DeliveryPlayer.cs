@@ -140,6 +140,14 @@ namespace DeliveryGamemode
 				car.Rotation = Rotation.Identity;
 				player.ownedCar = car;
 
+				if(player.info != null)
+				{
+					foreach(var cargo in player.info.cargos)
+					{
+						cargo.Delete();
+					}
+				}
+
 				player.info = null;
 				player.ClearInfo();
 				player.orderState = 0;
