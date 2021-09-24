@@ -33,7 +33,17 @@ namespace DeliveryGamemode
 				markerPanel.Style.Dirty();
 				if (player.info != null && player.orderState != 2)
 				{
-					var point = player.orderState == 0 ? player.info.start : player.info.end;
+					var point = player.info.end;
+
+					if ( player.info.cargos.Length > 0 )
+					{
+						var cargo = player.info.cargos.OrderByDescending( t => Vector3.DistanceBetween( t.Position, player.Position ) ).FirstOrDefault();
+
+						if ( (Vector3.DistanceBetween( cargo.Position, player.Position ) / 1000) > 1 )
+						{
+							point = new DeliveryGame.DeliveryPoint() { position = cargo.Position, normal = Vector3.Up };
+						}
+					}
 
 					if ( Vector3.DistanceBetween( point.position + point.normal * 50, player.Position ) / 1000 > 1)
 					{
