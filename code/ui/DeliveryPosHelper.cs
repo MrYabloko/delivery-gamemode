@@ -37,9 +37,9 @@ namespace DeliveryGamemode
 
 					if ( player.info.cargos.Length > 0 )
 					{
-						var cargo = player.info.cargos.OrderByDescending( t => Vector3.DistanceBetween( t.Position, player.Position ) ).FirstOrDefault();
+						var cargo = player.info.cargos.Where(t => t != null).OrderByDescending( t => Vector3.DistanceBetween( t.Position, player.Position ) ).FirstOrDefault();
 
-						if ( (Vector3.DistanceBetween( cargo.Position, player.Position ) / 1000) > 1 )
+						if (cargo != null ? ((Vector3.DistanceBetween( cargo.Position, player.Position ) / 1000) > 1) : false)
 						{
 							point = new DeliveryGame.DeliveryPoint() { position = cargo.Position, normal = Vector3.Up };
 						}
