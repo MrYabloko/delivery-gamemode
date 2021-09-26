@@ -137,7 +137,7 @@ namespace DeliveryGamemode
 				var spawnPosition = player.currentSelector.Position + player.currentSelector.Rotation.Backward * 100 + Vector3.Up * 100;
 				var car = Library.Create<CarEntity>( type );
 				car.Position = spawnPosition;
-				car.Rotation = Rotation.Identity;
+				car.Rotation = player.currentSelector.Rotation + Rotation.From(0,180,0);
 				player.ownedCar = car;
 
 				if(player.info != null)
