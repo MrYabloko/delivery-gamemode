@@ -132,7 +132,7 @@ namespace DeliveryGamemode
 
 		public void CreateCarSelector(Vector3 position, Angles rotation)
 		{
-			if(IsServer && PlayerScore.All.Length <= 1 )
+			if(IsServer)
 			{
 
 				var selector = new CarSelector();
@@ -165,7 +165,7 @@ namespace DeliveryGamemode
 
 		public void DeleteCarSelector(CarSelector selector)
 		{
-			if ( IsServer && PlayerScore.All.Length <= 1)
+			if ( IsServer )
 			{
 				selectors.Remove( selector );
 				selector.Delete();
