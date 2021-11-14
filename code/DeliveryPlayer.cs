@@ -257,7 +257,7 @@ namespace DeliveryGamemode
 				ActiveChild = Input.ActiveChild;
 			}
 
-			if(editingButtonPress > 1 && PlayerScore.All.Length <= 1 )
+			if(editingButtonPress > 1 && Global.Lobby.Owner.IsMe )
 			{
 				ChangeEditingMode( !isEditing );
 				editingButtonPress = 0;
@@ -270,11 +270,6 @@ namespace DeliveryGamemode
 			else
 			{
 				editingButtonPress = 0;
-			}
-
-			if(isEditing && PlayerScore.All.Length > 1)
-			{
-				ChangeEditingMode( false );
 			}
 
 			var eyePos = EyePos;
